@@ -1,0 +1,158 @@
+echo ""
+echo ""
+# aarch64-linux-android-objects
+# Converts a single .obj file into a C file, compiles it with a main C program, and outputs a binary.
+echo ""
+echo ""
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    echo ""
+    echo "aarch64-linux-android-objects"
+    echo ""
+    echo "------------------------------"
+    echo ""
+    echo "Description:"
+    echo "  This utility converts a single .obj file into a C source file,"
+    echo ""
+    echo "  then compiles it together with a specified main C program"
+    echo "  to produce a final executable binary."
+    echo ""
+    echo "Usage:"
+    echo "  aarch64-linux-android-objects <file.obj> <main.c> -o <output_binary>"
+    echo ""
+    echo "Arguments:"
+    echo "  file.obj       The object file containing object definitions."
+    echo ""
+    echo "  main.c         The main program that will use the objects."
+    echo "  -o <output>    Specifies the name of the final output binary."
+    echo ""
+    echo "Options:"
+    echo "  -h, --help     Show this help text and exit."
+    echo ""
+    echo "Behavior:"
+    echo "  1. Checks for clang; if unavailable, checks gcc."
+    echo ""
+    echo "  2. If neither compiler is found, installs clang quietly via apt."
+    echo "  3. Renames the .obj file to a .c file automatically."
+    echo ""
+    echo "  4. Compiles using -Weverything to enable all warnings."
+    echo "  5. Produces the output binary as specified."
+    echo ""
+    echo "Notes:"
+    echo "  - Only a single .obj file can be processed at a time."
+    echo ""
+    echo "  - The script is intended for Termux environments."
+    echo "  - The script will echo a message after compilation indicating"
+    echo ""
+    echo "    which compiler was used."
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    echo ""
+    exit 0
+fi
+
+echo ""
+echo ""
+
+if [ $# -ne 4 ] || [ "$3" != "-o" ]; then
+    echo ""
+    echo "Error: Invalid arguments."
+    echo ""
+    echo "Run '$0 -h' for detailed help."
+    echo ""
+    exit 1
+fi
+
+echo ""
+
+OBJ_FILE="$1"
+MAIN_FILE="$2"
+OUTPUT="$4"
+
+echo ""
+echo ""
+echo ""
+
+# Check for compiler
+if command -v clang >/dev/null 2>&1; then
+    echo ""
+    COMPILER=clang
+elif command -v gcc >/dev/null 2>&1; then
+    echo ""
+    COMPILER=gcc
+else
+    echo ""
+    echo "Installing clang..."
+    apt update -qq
+    apt install -qq clang -y
+    echo ""
+    COMPILER=clang
+fi
+
+echo ""
+echo ""
+echo ""
+echo ""
+
+# Convert .obj → .c
+C_OBJ_FILE="${OBJ_FILE%.obj}.c"
+mv "$OBJ_FILE" "$C_OBJ_FILE"
+echo ""
+echo ""
+echo ""
+
+# Compile
+$COMPILER "$C_OBJ_FILE" "$MAIN_FILE" -Weverything -o "$OUTPUT"
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+
+echo "Compiled $OUTPUT from $OBJ_FILE and $MAIN_FILE using $COMPILER"
+
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+
